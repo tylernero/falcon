@@ -1,5 +1,6 @@
 % The Simplex Algorithm
 % INPUT c, A, b, BASIS / c is a row vector
+%matrix = KleeMinty(30)
 matrix = KleeMinty(18)
 A = matrix.aMatrixGen(matrix)
 b = matrix.bVectorGen(matrix)
@@ -14,19 +15,30 @@ Basis = matrix.basisGen(matrix)
 time = cputime
 INB = inv(A(:,Basis)); bbar = INB*b;
 degen = 0;
-for step = 1:100000000
+for step = 1:10000000
     cB = c(Basis);
     y = cB*INB;
     cbar = c-y*A;
-    [cmin,s] = min(c-y*A);
-    if cmin >=-1e-10, break,end
-    d = INB*A(:,s); 
-    INDEX = find(d>1e-6); 
+    if min(cbar) >=-1e-10, break,end
+    cur_theta = inf;
+    for s_iter = 1:length(cbar)
+        if cbar(s_iter) <= -1e-10
+            d = INB*A(:,s_iter);
+            INDEX = find(d>1e-6);
+            col_ratio = bbar(INDEX)./d(INDEX);
+            [theta,t_iter] = min(col_ratio);
+            if theta < cur_theta
+                cur_theta = theta;
+                s = s_iter;
+                t = t_iter;
+            end
+        end
+    end
+    d = INB*A(:,s);
+    INDEX = find(d>1e-6);
     if isempty(INDEX)
         error('problem is unbounded') 
     end
-    RATIO = bbar(INDEX)./d(INDEX);
-    [theta,t] = min(RATIO);
     if theta < 1e-10
         degen = degen + 1;
     end
@@ -35,7 +47,7 @@ for step = 1:100000000
     INB = inv(A(:,Basis));
     bbar = INB*b;
 end
-disp( 'psimplex')
+disp( 'steepest edge')
 disp(cputime - time)
 disp(step)
 disp(degen)

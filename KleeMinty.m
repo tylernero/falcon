@@ -23,8 +23,8 @@ classdef KleeMinty
         function [A] = aMatrixGen(obj)
             A = zeros(obj.sizeN,2*obj.sizeN)
             for i = 1:obj.sizeN
-                for j = 1:(i-2)
-                    A(i,j) = 2^(i-j)
+                for j = 1:(i-1)
+                    A(i,j) = 2^(i-j+1)
                 end
                 A(i,i) = 1
                 A(i,obj.sizeN+i) = 1
