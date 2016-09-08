@@ -1,18 +1,18 @@
 % The Simplex Algorithm
 % INPUT c, A, b, BASIS / c is a row vector
 %matrix = KleeMinty(30)
-matrix = KleeMinty(18)
-A = matrix.aMatrixGen(matrix)
-b = matrix.bVectorGen(matrix)
-c = matrix.costGen(matrix)
-Basis = matrix.basisGen(matrix)
+matrix = Assignment(20)
+A = matrix.aMatrixGen(matrix);
+b = matrix.bVectorGen(matrix);
+c = matrix.costGen(matrix);
+Basis = matrix.basisGen(matrix);
 % pie
 % d = reduced cost
 % jE = entering variable index
 % jL = leaving variable index
 % bbar = current basic solution
 
-time = cputime
+time = cputime;
 INB = inv(A(:,Basis)); bbar = INB*b;
 degen = 0;
 for step = 1:10000000
