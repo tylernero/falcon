@@ -1,7 +1,7 @@
 % The Simplex Algorithm
 % INPUT c, A, b, BASIS / c is a row vector
 %matrix = KleeMinty(30)
-matrix = Assignment(20)
+matrix = Assignment(25);
 A = matrix.aMatrixGen(matrix);
 b = matrix.bVectorGen(matrix);
 c = matrix.costGen(matrix);
@@ -51,3 +51,4 @@ disp( 'steepest edge')
 disp(cputime - time)
 disp(step)
 disp(degen)
+disp(y*b)

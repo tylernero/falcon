@@ -1,6 +1,6 @@
 % The Simplex Algorithm
 % INPUT c, A, b, BASIS / c is a row vector
-matrix = Assignment(20);
+matrix = Assignment(50);
 A = matrix.aMatrixGen(matrix);
 b = matrix.bVectorGen(matrix);
 c = matrix.costGen(matrix);
@@ -40,3 +40,5 @@ disp( 'psimplex')
 disp(cputime - time)
 disp(step)
 disp(degen)
+disp(y*b)
+disp(cB*bbar)
